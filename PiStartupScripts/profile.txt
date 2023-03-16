@@ -1,0 +1,5 @@
+# These commands need to be added to the Raspi Profile File
+To Edit: sudo nano /etc/profile
+
+Then add these commands to the end of file:
+
