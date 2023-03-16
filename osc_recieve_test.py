@@ -26,7 +26,8 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   dispatcher = Dispatcher()
-  dispatcher.map("/position", print)
+  dispatcher.map("/player/position", print)
+  dispatcher.map("/voice_control", print)
 #   dispatcher.map("/volume", print_volume_handler, "Volume")
 #   dispatcher.map("/logvolume", print_compute_handler, "Log volume", math.log)
 
