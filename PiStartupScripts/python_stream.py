@@ -8,7 +8,6 @@ import threading
 from datetime import datetime
 import json
 import logging
-import sensors
 import RPi.GPIO as GPIO
 import psutil
 

@@ -20,6 +20,8 @@ min_energy = 0.3
 
 eth_ip = "169.254.186.148"
 
+osc_ip = "146.169.156.58"
+
 # def animate(i):
 #     plt.cla()
 #     plt.title("Position Detected", fontsize = 25, fontname = "Helvetica")
@@ -105,7 +107,7 @@ ssl_thread.start()
 sst_thread.start()
 sss_sep_thread.start()
 sss_pf_thread.start()
-osc_thread = threading.Thread(target=init_osc_client, args=("146.169.157.97", 7000, x_pos_queue))
+osc_thread = threading.Thread(target=init_osc_client, args=(osc_ip, 7000, x_pos_queue))
 # osc_thread = threading.Thread(target=init_osc_client, args=("127.0.0.1", 5005, x_pos_queue))
 osc_thread.start()
 
