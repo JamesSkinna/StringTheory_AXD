@@ -46,7 +46,7 @@ if __name__ == "__main__":
                           callback=interrupt_button_callback, bouncetime=100)
     
     # start streaming the data from the pi...
-    stream_cmd = "../odas/build/bin/odaslive -c ./respeaker_6_mic_array.cfg"
+    stream_cmd = "../../odas/build/bin/odaslive -c ./respeaker_6_mic_array.cfg"
     subprocess.call(stream_cmd, shell=True)
 
     while True:
