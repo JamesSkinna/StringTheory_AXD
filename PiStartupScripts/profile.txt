@@ -3,3 +3,7 @@ To Edit: sudo nano /etc/profile
 
 Then add these commands to the end of file:
 
+chmod +x ~/StringTheory_AXD/PiStartupScripts/*;
+sudo -u pi ~/StringTheory_AXD/PiStartupScripts/recorder_startup_script.sh;
+
+
