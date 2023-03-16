@@ -10,4 +10,4 @@ eval $(ssh-agent -s)
 
 # Start recording script
 printf 'Starting Streaming\n'
-sudo python3 python_record.py $config_file $logfile_name $logdir
+sudo python3 python_stream.py
