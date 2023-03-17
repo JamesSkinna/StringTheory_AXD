@@ -1,6 +1,8 @@
 # These commands need to be added to the Raspi Profile File
 To Edit: sudo nano /etc/profile
 
+(First command gives permissions to enable the shell script to run, second command runs it)
+
 Then add these commands to the end of file:
 
 chmod +x ~/StringTheory_AXD/PiStartupScripts/*;
