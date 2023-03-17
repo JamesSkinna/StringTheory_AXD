@@ -42,6 +42,7 @@ def interrupt_button_callback(channel):
     # On first button press
     if button_press_count == 0:
         # start streaming the data from the pi...
+        print("starting stream")
         stream_cmd = "../../odas/build/bin/odaslive -c ./respeaker_6_mic_array.cfg"
         subprocess.call(stream_cmd, shell=True)
         button_press_count += 1
