@@ -37,6 +37,7 @@ def interrupt_button_callback(channel):
     We wait for the button press before we start streaming over ethernet.
     This allows the ethernet connection to be established, and gives time to start the server (on the laptop)
     """
+    global button_press_count   # Need to explicitly tell this callback to access the global variable
 
     # On first button press
     if button_press_count == 0:
