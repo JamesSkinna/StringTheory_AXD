@@ -2,8 +2,8 @@ import socket
 import threading
 import time
 import json
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+# import matplotlib.pyplot as plt
+# import matplotlib.animation as animation
 from queue import Queue
 from queue import Empty
 import argparse
@@ -73,6 +73,11 @@ def init_tcp_server(port, type, x_queue):
                     x1 = round_half_integer(source1["x"])*screen_mapping
                     print(x1)
                     x_queue.put(float(x1))
+                    # print(round_half_integer(x1))
+                    # y1 = source1["y"]
+                    # z1 = source1["z"]
+                    # x_data.append(x1)
+                    # y_data.append(y1)
             if not data:
                 break
 
@@ -113,7 +118,7 @@ def init_mic_transcribe(msg_queue):
                 # Pause to adjust energy level based on surrounding noise
                 init_rec.adjust_for_ambient_noise(source, duration=0.2)
                 
-                audio_data = init_rec.record(source, duration=2)
+                audio_data = init_rec.record(source, duration=3)
                 text = init_rec.recognize_google(audio_data)
                 for word in list_of_words:
                     if word in text:
