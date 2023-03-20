@@ -23,11 +23,13 @@ min_energy = 0.3            # Play around with this value - louder rooms need hi
 
 eth_ip = "169.254.186.148"
 
-osc_ip = "146.169.156.58"
+osc_ip = "146.169.136.107"
 osc_port = 7000
 # FOR TESTING...
 # osc_ip = "127.0.0.1"
 # osc_port = 5005
+
+list_of_words = ["transform", "back", "play"]
 
 # def animate(i):
 #     plt.cla()
@@ -71,11 +73,6 @@ def init_tcp_server(port, type, x_queue):
                     x1 = round_half_integer(source1["x"])*screen_mapping
                     print(x1)
                     x_queue.put(float(x1))
-                    # print(round_half_integer(x1))
-                    # y1 = source1["y"]
-                    # z1 = source1["z"]
-                    # x_data.append(x1)
-                    # y_data.append(y1)
             if not data:
                 break
 
@@ -99,7 +96,7 @@ def init_osc_client(ip_address, port, queue):
         # Check if the data is a string (this will only come from voice commands)
         if isinstance(queue_object, str):
             # Then, send the data
-            client.send_message("/voice_control", queue_object)
+            client.send_message("/player/audio/instruction", queue_object)
         else:
             # If not a string, will be a float - x position data
             client.send_message("/player/position", queue_object)
@@ -118,9 +115,13 @@ def init_mic_transcribe(msg_queue):
                 
                 audio_data = init_rec.record(source, duration=2)
                 text = init_rec.recognize_google(audio_data)
-                if "restart" in text:
-                    msg_queue.put("restart")
-                    print("restart")
+                for word in list_of_words:
+                    if word in text:
+                        msg_queue.put(word)
+                        print(word)
+                # if "restart" in text:
+                #     msg_queue.put("restart")
+                #     print("restart")
 
             except sr.RequestError as e:
                 pass
