@@ -18,8 +18,8 @@ import pyaudio
 # y_data = []
 
 
-screen_mapping = -7.5
-min_energy = 0.3            # Play around with this value - louder rooms need higher min energy (& vice versa)
+screen_mapping = 7.5
+min_energy = 0.2            # Play around with this value - louder rooms need higher min energy (& vice versa)
 
 eth_ip = "169.254.186.148"
 
@@ -29,7 +29,7 @@ osc_port = 7000
 # osc_ip = "127.0.0.1"
 # osc_port = 5005
 
-list_of_words = ["transform", "back", "play"]
+list_of_words = ["transform", "change", "back", "reset", "play", "start", "again"]
 
 # def animate(i):
 #     plt.cla()
@@ -75,7 +75,7 @@ def init_tcp_server(port, type, x_queue):
                     x_queue.put(float(x1))
                     # print(round_half_integer(x1))
                     # y1 = source1["y"]
-                    # z1 = source1["z"]
+                    # x1 = source1["x"]
                     # x_data.append(x1)
                     # y_data.append(y1)
             if not data:
@@ -104,7 +104,7 @@ def init_osc_client(ip_address, port, queue):
             client.send_message("/player/audio/instruction", queue_object)
         else:
             # If not a string, will be a float - x position data
-            client.send_message("/player/position", queue_object)
+            client.send_message("/player/position", queue_object) 
 
 
 def init_mic_transcribe(msg_queue):
@@ -116,9 +116,9 @@ def init_mic_transcribe(msg_queue):
         while True:
             try:
                 # Pause to adjust energy level based on surrounding noise
-                init_rec.adjust_for_ambient_noise(source, duration=0.2)
+                # init_rec.adjust_for_ambient_noise(source, duration=0.2)
                 
-                audio_data = init_rec.record(source, duration=3)
+                audio_data = init_rec.record(source, duration=2)
                 text = init_rec.recognize_google(audio_data)
                 for word in list_of_words:
                     if word in text:
@@ -169,7 +169,7 @@ try:
         time.sleep(1)
 except KeyboardInterrupt:
     die.set()
-    plt.close()
+    # plt.close()
     ssl_thread.join()
     sst_thread.join()
     sss_sep_thread.join()
