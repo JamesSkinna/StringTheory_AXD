@@ -23,7 +23,7 @@ min_energy = 0.2            # Play around with this value - louder rooms need hi
 
 eth_ip = "169.254.186.148"
 
-osc_ip = "146.169.136.107"
+osc_ip = "146.169.129.226"
 osc_port = 7000
 # FOR TESTING...
 # osc_ip = "127.0.0.1"
@@ -116,9 +116,9 @@ def init_mic_transcribe(msg_queue):
         while True:
             try:
                 # Pause to adjust energy level based on surrounding noise
-                # init_rec.adjust_for_ambient_noise(source, duration=0.2)
+                init_rec.adjust_for_ambient_noise(source, duration=0.2)
                 
-                audio_data = init_rec.record(source, duration=2)
+                audio_data = init_rec.record(source, duration=3)
                 text = init_rec.recognize_google(audio_data)
                 for word in list_of_words:
                     if word in text:
