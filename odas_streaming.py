@@ -62,17 +62,17 @@ def init_tcp_server(port, type, x_queue):
         print(f"Connected to {type}")
         while not die.is_set():
             data = conn.recv(4096)      # Receive data and do nothing
-            if type == "ssl":
+            if type == "ssl":           # If thread is setup for receiving localisation data
                 try:
                     pos_dict = json.loads(data.decode('UTF-8'))     # Decode data into a dictionary
                 except:
                     print("JSON recv failed")
-                source1 = pos_dict["src"][0]
-                energy1 = source1["E"]
+                source1 = pos_dict["src"][0]                        # Extract data from 1st sound source
+                energy1 = source1["E"]                              # Extract energy level of sound source
                 if energy1 > min_energy:
-                    x1 = round_half_integer(source1["x"])*screen_mapping
+                    x1 = round_half_integer(source1["x"])*screen_mapping    # Round x location data, and scale (according to unity screen dimensions)
                     print(x1)
-                    x_queue.put(float(x1))
+                    x_queue.put(float(x1))                                  # Add processed data to queue, to be exported via OSC on separate thread 
                     # print(round_half_integer(x1))
                     # y1 = source1["y"]
                     # x1 = source1["x"]
@@ -118,11 +118,11 @@ def init_mic_transcribe(msg_queue):
                 # Pause to adjust energy level based on surrounding noise
                 init_rec.adjust_for_ambient_noise(source, duration=0.2)
                 
-                audio_data = init_rec.record(source, duration=3)
-                text = init_rec.recognize_google(audio_data)
-                for word in list_of_words:
+                audio_data = init_rec.record(source, duration=3)    # Record audio clip for specified duration
+                text = init_rec.recognize_google(audio_data)        # Run google's transcribe API
+                for word in list_of_words:                          # Check if sentence incudes any of the key words
                     if word in text:
-                        msg_queue.put(word)
+                        msg_queue.put(word)                         # Add any key words to the queue, to export via OSC
                         print(word)
                 # if "restart" in text:
                 #     msg_queue.put("restart")
